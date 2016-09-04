@@ -8,7 +8,7 @@ namespace AddressProcessing.Tests
     public class AddressFileProcessorTests
     {
         private FakeMailShotService _fakeMailShotService;
-        private const string TestInputFile = @"C:\POCs\Tline\src\AddressProcessor.Tests\test_data\contacts.csv";
+        private const string TestInputFile = @"C:\GitReposVC\Tline\src\AddressProcessor.Tests\test_data\contacts.csv";
 
         [SetUp]
         public void SetUp()
