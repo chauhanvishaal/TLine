@@ -8,8 +8,22 @@ namespace AddressProcessing.CSV
 
         Please leave the rest of this file as it is so we can discuss your concerns during the next stage of the interview process.
         
-        *)
-        *)
+        a)Remove Duplicate code
+      
+        b)Handle exceptions 
+
+        c)Refactor core functions: read, write and open/close, to corresponding classes, 
+          adhering to SRP - single responsibility
+     
+        d)Create interfaces for core functions and implement them to enable
+          OCP - open closed principle
+     
+        e)Refactor tight coupling between fileFormat and read/write functions by using suitable types
+     
+        f)Read file parallely by using suitable parallel types/constructs from 
+          Parallel Framework in .NET for performant code
+     
+     
         *)
     */
 
