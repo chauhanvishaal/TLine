@@ -1,6 +1,7 @@
 ﻿using System;
 using AddressProcessing.Address.v1;
 using AddressProcessing.CSV;
+using System.Diagnostics;
 
 namespace AddressProcessing.Address
 {
@@ -20,12 +21,10 @@ namespace AddressProcessing.Address
             reader.Open(inputFile, CSVReaderWriter.Mode.Read);
 
             string column1, column2;
-
             while(reader.Read(out column1, out column2))
             {
                 _mailShot.SendMailShot(column1, column2);
             }
-
             reader.Close();
         }
     }

@@ -15,16 +15,13 @@ namespace AddressProcessing.CSV
         c)Refactor core functions: read, write and open/close, to corresponding classes, 
           adhering to SRP - single responsibility
      
-        d)Create interfaces for core functions and implement them to enable
-          OCP - open closed principle
+        d)Refactor tight coupling between fileFormat and read/write functions by using suitable types
      
-        e)Refactor tight coupling between fileFormat and read/write functions by using suitable types
-     
-        f)Read file parallely by using suitable parallel types/constructs from 
-          Parallel Framework in .NET for performant code
-     
-     
-        *)
+        e)Read file parallely by using suitable parallel types/constructs from 
+          Parallel Framework in .NET e.g: Parallel.Foreach 
+          This may however require changing AddressFileProcessor which is not allowed.
+          
+          Alternately try using MemoryMappedFiles which will not require changing AddressFileProcessor
     */
 
     public class CSVReaderWriterForAnnotation

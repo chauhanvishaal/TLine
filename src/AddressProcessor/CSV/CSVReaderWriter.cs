@@ -2,6 +2,10 @@
 using System.IO;
 using AddressProcessing.CSV;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.IO.MemoryMappedFiles;
+using System.Text;
+using System.Diagnostics;
 
 namespace AddressProcessing.CSV
 {
@@ -11,7 +15,7 @@ namespace AddressProcessing.CSV
     */
     
 
-    public class CSVReaderWriter : ICSVReader, ICSVWriter
+    public class CSVReaderWriter //: ICSVReader, ICSVWriter
     {
 
         [Flags]
@@ -19,20 +23,19 @@ namespace AddressProcessing.CSV
 
         ICSVReader csvReader;
         ICSVWriter csvWriter;
-
         StreamReader _readerStream;
         StreamWriter _writerStream;
-        string _fileName = "" ;
-
         public void Open(string fileName, Mode mode)
         {
-            
-            _fileName = fileName ;
-
             if (mode == Mode.Read)
             {
-                _readerStream = File.OpenText(fileName);
-                csvReader = new CSVReader(_readerStream);
+                //_readerStream = File.OpenText(fileName);
+                using (MemoryMappedFile mmFile = MemoryMappedFile.CreateFromFile(fileName))
+                {
+                    Stream mmvStream = mmFile.CreateViewStream();
+                    csvReader = new CSVReader( _readerStream = new StreamReader(mmvStream));
+                }
+                //csvReader = new CSVReader(_readerStream);
             }
             else if (mode == Mode.Write)
             {
@@ -70,6 +73,26 @@ namespace AddressProcessing.CSV
                 throw new Exception("File not open");
 
             return csvReader.Read(out column1, out column2);
+        }
+
+        static int rowNum =0;
+
+        public void FastRead()
+        {
+            
+           
+            //  using (StreamReader sr = new StreamReader(mmvStream, ASCIIEncoding.ASCII)) {
+ 
+            //    while (!sr.EndOfStream) {
+ 
+            //      String line = sr.ReadLine();
+            //      cr.FastRead(line);
+                  
+                    
+            //    }
+            //  }            
+            //}
+
         }
 
         public void Write(params string[] columns)

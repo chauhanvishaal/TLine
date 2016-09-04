@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 
@@ -8,6 +9,11 @@ namespace AddressProcessing.CSV
     class CSVReader : ICSVReader
     {
         StreamReader _readerStream;
+
+        public CSVReader()
+        {
+
+        }
 
         public CSVReader(StreamReader streamReader)
         {
@@ -37,6 +43,8 @@ namespace AddressProcessing.CSV
 
             column1 = record.col1;
             column2 = record.col2;
+
+            //Debug.WriteLine("{0}{1}", column1, column2);
             return true;
 
         }
@@ -57,11 +65,13 @@ namespace AddressProcessing.CSV
             char[] separator = { '\t' };
 
             line = ReadLine();
-
-            if (line == null)
+            line = line.Trim('\0');
+            if (string.IsNullOrEmpty(line))
             {
                 return null;
             }
+
+            //Debug.WriteLine("[{0:D4}] \"{1}\"", line.Length, line);
 
             columns = line.Split(separator);
 
@@ -73,7 +83,7 @@ namespace AddressProcessing.CSV
             {
                 fileRecord.col1 = columns[FIRST_COLUMN];
                 fileRecord.col2 = columns[SECOND_COLUMN];
-
+                
                 return fileRecord ;
             }
         }
@@ -84,6 +94,5 @@ namespace AddressProcessing.CSV
 
 
         }
-
     }
 }
